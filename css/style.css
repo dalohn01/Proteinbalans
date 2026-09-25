@@ -9,7 +9,6 @@
   --accent-strong: #17583a;
   --cell-empty: #eceeea;
   --cell-empty-border: #dcdfd9;
-  --cell-overflow: #f4f5f2;
   --radius-lg: 18px;
   --radius-md: 12px;
   --shadow: 0 1px 2px rgba(19, 38, 28, 0.04), 0 4px 16px rgba(19, 38, 28, 0.04);
@@ -162,16 +161,12 @@ svg { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round
   transition: background-color 0.25s, border-color 0.25s;
 }
 
-.overflow-block .cell {
-  background: var(--cell-overflow);
-  border-style: dashed;
-}
+/* Överskottscirklar visas bara när de är ifyllda. */
+.overflow-block .cell:not(.filled) { display: none; }
 
-.cell.filled,
-.overflow-block .cell.filled {
+.cell.filled {
   background: var(--fill);
   border-color: transparent;
-  border-style: solid;
 }
 
 .cell.pop { animation: pop 0.35s cubic-bezier(0.3, 1.6, 0.5, 1) both; }
