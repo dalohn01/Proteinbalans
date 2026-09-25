@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Proteinbalans</title>
+  <meta name="description" content="Se hur maten fyller ditt proteinmål. Dra in livsmedel och bygg din dag.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg class="brand-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4c-8 0-14 4-14 11 0 1.2.2 2.3.6 3.3C8 13 11 10 15 8c-3.3 2.4-5.8 5.6-7.2 9.8A7 7 0 0 0 11 19c7 0 9-7 9-15Z"/></svg>
+      Proteinbalans
+    </div>
+    <button class="link-button" id="help-open" type="button">
+      <span class="help-icon" aria-hidden="true">?</span> Så fungerar det
+    </button>
+  </header>
+
+  <main class="page">
+    <div class="intro">
+      <h1>Se hur maten fyller ditt proteinmål</h1>
+      <p>Dra in livsmedel och bygg din dag.</p>
+    </div>
+
+    <div class="columns">
+      <!-- Vänster: dagsmålet -->
+      <section class="panel goal-panel" id="goal-panel" aria-labelledby="goal-title">
+        <div class="panel-head">
+          <h2 id="goal-title">Ditt dagsmål</h2>
+          <button class="pill pill-button" id="goal-open" type="button" aria-label="Ändra dagsmål">
+            <span id="goal-pill-text">84 g protein</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L18.5 9.5l-4-4L4 16v4Zm13.1-15.9 4 4 1.4-1.4a1.4 1.4 0 0 0 0-2l-2-2a1.4 1.4 0 0 0-2 0l-1.4 1.4Z"/></svg>
+          </button>
+        </div>
+
+        <div class="goal-body">
+          <div class="stats" aria-live="polite">
+            <div class="stat-percent"><span id="stat-percent">0</span>&nbsp;%</div>
+            <div class="stat-grams" id="stat-grams">0 av 84 g protein</div>
+            <div class="stat-rest" id="stat-rest">84 g kvar till ditt mål</div>
+          </div>
+
+          <div class="grid-wrap">
+            <div class="cell-grid" id="grid" role="img" aria-label="Andel av dagsmålet"></div>
+            <p class="grid-note">En cirkel = 1 % av ditt dagsmål</p>
+            <p class="grid-overflow" id="grid-overflow" hidden></p>
+          </div>
+        </div>
+
+        <div class="dropzone" id="dropzone">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 18a4 4 0 0 0 .6-8A6 6 0 0 0 8 8.4 4.5 4.5 0 0 0 6.5 18H9m3 2v-8m0 0-3 3m3-3 3 3"/></svg>
+          <span>Släpp ett livsmedel här</span>
+        </div>
+
+        <div class="added">
+          <div class="added-head">
+            <h3>Tillagt idag</h3>
+            <button class="link-button small" id="clear-all" type="button" hidden>Rensa</button>
+          </div>
+          <ul class="chips" id="chips"></ul>
+          <p class="empty-hint" id="chips-empty">Inget tillagt än.</p>
+        </div>
+      </section>
+
+      <!-- Höger: livsmedel -->
+      <section class="panel food-panel" aria-labelledby="food-title">
+        <div class="food-head">
+          <div>
+            <h2 id="food-title">Välj livsmedel</h2>
+            <p class="muted">Dra till vänster eller tryck på +</p>
+          </div>
+          <label class="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input id="search" type="search" placeholder="Sök livsmedel…" autocomplete="off" aria-label="Sök livsmedel">
+          </label>
+        </div>
+
+        <div class="filters" id="filters" role="group" aria-label="Kategorier"></div>
+
+        <ul class="food-list" id="food-list"></ul>
+        <p class="empty-hint" id="food-empty" hidden>Inga livsmedel matchar sökningen.</p>
+
+        <p class="source-note">Proteinvärden: Livsmedelsverkets livsmedelsdatabas. Portionsstorlekar är ungefärliga.</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Dialog: dagsmål -->
+  <dialog class="dialog" id="goal-dialog">
+    <form id="goal-form">
+      <h2>Ditt dagsmål</h2>
+      <p class="muted">Rekommendationen här är <strong><span id="per-kg-text">1,2</span> g protein per kg kroppsvikt</strong> och dygn.</p>
+      <label class="field">
+        <span>Din vikt</span>
+        <span class="input-unit"><input id="weight-input" type="number" inputmode="decimal" min="20" max="300" step="1" required> kg</span>
+      </label>
+      <p class="goal-preview">Ditt mål blir <strong id="goal-preview">84 g protein</strong> per dag.</p>
+      <div class="dialog-actions">
+        <button class="btn-secondary" id="goal-cancel" type="button">Avbryt</button>
+        <button class="btn-primary" type="submit">Spara</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Dialog: hjälp -->
+  <dialog class="dialog" id="help-dialog">
+    <form method="dialog">
+      <h2>Så fungerar det</h2>
+      <ol class="help-list">
+        <li>Ange din vikt under <strong>Ditt dagsmål</strong>. Målet räknas ut som vikt × 1,2 g protein.</li>
+        <li>Dra ett livsmedel från listan till vänster, eller tryck på <strong>+</strong>. På mobil: håll inne på kortet en stund och dra sedan.</li>
+        <li>Varje cirkel är 1 % av ditt dagsmål. Cirklarna fylls nedifrån och upp, och ovanför målstrecket syns hur mycket du går över målet.</li>
+        <li>Tryck på <strong>×</strong> på ett tillagt livsmedel för att ta bort en portion.</li>
+      </ol>
+      <p class="muted small">Proteinvärdena kommer från Livsmedelsverkets livsmedelsdatabas. Proteinpulver och färdiga proteinshakes finns inte i databasen och använder ungefärliga typvärden. Portionsstorlekarna är ungefärliga.</p>
+      <div class="dialog-actions">
+        <button class="btn-primary" type="submit">Stäng</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="data/foods.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
