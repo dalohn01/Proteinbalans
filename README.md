@@ -20,9 +20,18 @@ Dubbelklicka på `index.html`. Inget behöver installeras.
 
 Proteinvärden per 100 g kommer från Livsmedelsverkets livsmedelsdatabas
 (API v1, dataversion 2026-06-29). Varje livsmedel har `slv` (nummer i
-databasen) och `slvName` så att värdet går att spåra. Portionsstorlekar är
-egna, ungefärliga standardportioner. Proteinpulver och färdiga proteinshakes
-finns inte i databasen och är markerade med `source: "typvärde"`.
+databasen) och `slvName` så att värdet går att spåra. Proteinpulver och
+färdiga proteinshakes finns inte i databasen och är markerade med
+`source: "typvärde"`.
+
+Portionsvikten har källan angiven i `portionSource`:
+
+- `slv` – portionen i Livsmedelsverkets livsmedelsdatabas (valet "Portion" i
+  [Sök näringsinnehåll](https://soknaringsinnehall.livsmedelsverket.se/)).
+- `pm2024` – Livsmedelsverkets PM 2024 *Volymvikter, viktförändringsfaktorer
+  och avfall* (vikt per dl/msk).
+- `egen` – egen standardportion, där Livsmedelsverket saknar portion eller där
+  deras portion inte passar (t.ex. fläskfilé 20 g = en skiva).
 
 Dagsmålet räknas ut som kroppsvikt × 1,2 g protein.
 
